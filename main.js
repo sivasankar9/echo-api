@@ -11,6 +11,12 @@ const userSchema = new mongoose.Schema({
   name: String,
   pwd: String,
 });
+const userSkillsSchema = new mongoose.Schema({
+  path: String,
+  username: String,
+  skills: String,
+});
+var UserSkills = mongoose.model('skills', userSkillsSchema);
 
 var Users = mongoose.model('users', userSchema);
 app.get('/', (req, res) => {
@@ -29,5 +35,10 @@ main().catch(err => console.log(err));
 app.get('/users', async (req, res) => {
   const ress = await Users.find({}, { _id: 0 }).exec();
   console.log('ress', ress);
+  res.send([ress]);
+});
+app.get('/skills', async (req, res) => {
+  const ress = await UserSkills.find({}, { _id: 0 }).exec();
+  console.log('UserSkills', ress);
   res.send(ress);
 });
