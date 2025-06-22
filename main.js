@@ -2,21 +2,21 @@
 const express = require('express');
 var mongoose = require('mongoose');
 const cors = require('cors');
-// const dbUrl = 'mongodb+srv://siva:tiger@cluster0.dim2c.mongodb.net/echo-connect'
+const dbUrl = 'mongodb+srv://siva:tiger@cluster0.dim2c.mongodb.net/echo-connect'
 const PORT = process.env.PORT || 9000;
-const dbUrl = 'mongodb://localhost:27017/echo-connect';
+// const dbUrl = 'mongodb://localhost:27017/echo-connect';
 const app = express();
-const whiteList = ["http://localhost:3000","https://echo-api-y6n3.onrender.com" ];
+const whiteList = ['http://localhost:3000', 'https://echo-api-y6n3.onrender.com'];
 var corsOptions = {
   origin: function (origin, callback) {
     if (whiteList.indexOf(origin) !== -1) {
-      callback(null, true)
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error('Not allowed by CORS'));
     }
-  }
-}
- 
+  },
+};
+app.use(cors());
 mongoose.set('strictQuery', false);
 const userSchema = new mongoose.Schema({
   name: String,
@@ -43,7 +43,7 @@ async function main() {
 }
 main().catch(err => console.log(err));
 
-app.get('/users',cors(corsOptions), async (req, res) => {
+app.get('/users', async (req, res) => {
   const ress = await Users.find({}, { _id: 0 }).exec();
   console.log('ress', ress);
   res.send([ress]);
