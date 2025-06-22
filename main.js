@@ -1,10 +1,16 @@
 // server.js
 const express = require('express');
-const app = express();
 var mongoose = require('mongoose');
+const cors = require('cors');
 const dbUrl = 'mongodb+srv://siva:tiger@cluster0.dim2c.mongodb.net/echo-connect'
 const PORT = process.env.PORT || 9000;
 // const dbUrl = 'mongodb://localhost:27017/echo-connect';
+const app = express();
+app.use(cors({
+        origin: "https://echo-api-y6n3.onrender.com"
+    }
+));
+app.options('*', cors())
 
 mongoose.set('strictQuery', false);
 const userSchema = new mongoose.Schema({
