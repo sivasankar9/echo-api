@@ -10,8 +10,6 @@ app.use(cors({
         origin: "https://echo-api-y6n3.onrender.com"
     }
 ));
-app.options('*', cors())
-
 mongoose.set('strictQuery', false);
 const userSchema = new mongoose.Schema({
   name: String,
