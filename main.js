@@ -2,9 +2,9 @@
 const express = require('express');
 var mongoose = require('mongoose');
 const cors = require('cors');
-const dbUrl = 'mongodb+srv://siva:tiger@cluster0.dim2c.mongodb.net/echo-connect'
+// const dbUrl = 'mongodb+srv://siva:tiger@cluster0.dim2c.mongodb.net/echo-connect'
 const PORT = process.env.PORT || 9000;
-// const dbUrl = 'mongodb://localhost:27017/echo-connect';
+const dbUrl = 'mongodb://localhost:27017/echo-connect';
 const app = express();
 const whiteList = ['http://localhost:3000', 'https://echo-api-y6n3.onrender.com'];
 var corsOptions = {
@@ -27,7 +27,11 @@ const userSkillsSchema = new mongoose.Schema({
   username: String,
   skills: String,
 });
-var UserSkills = mongoose.model('skills', userSkillsSchema);
+const skillsSchema = new mongoose.Schema({
+  skills: String,
+});
+var skills = mongoose.model('skills', skillsSchema);
+var UserSkills = mongoose.model('userskills', userSkillsSchema);
 
 var Users = mongoose.model('users', userSchema);
 app.get('/', (req, res) => {
@@ -49,6 +53,11 @@ app.get('/users', async (req, res) => {
   res.send([ress]);
 });
 app.get('/skills', async (req, res) => {
+  const ress = await skills.find({}, { _id: 0 }).exec();
+  console.log('skills', ress);
+  res.send(ress);
+});
+app.get('/userskills', async (req, res) => {
   const ress = await UserSkills.find({}, { _id: 0 }).exec();
   console.log('UserSkills', ress);
   res.send(ress);
