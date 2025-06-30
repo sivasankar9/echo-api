@@ -7,9 +7,9 @@ const skillsRouter = require('./routes/skills');
 const Users = require('./schema/userSchema');
 const singupModel = require('./schema/signupSchema');
 
-// const dbUrl = 'mongodb+srv://siva:tiger@cluster0.dim2c.mongodb.net/echo-connect'
+const dbUrl = 'mongodb+srv://siva:tiger@cluster0.dim2c.mongodb.net/echo-connect'
 const PORT = process.env.PORT || 9000;
-const dbUrl = 'mongodb://localhost:27017/echo-connect';
+//const dbUrl = 'mongodb://localhost:27017/echo-connect';
 const app = express();
 const whiteList = ['http://localhost:3000', 'https://echo-api-y6n3.onrender.com'];
 var corsOptions = {
