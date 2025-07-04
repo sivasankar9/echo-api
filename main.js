@@ -22,7 +22,12 @@ var corsOptions = {
   },
 };
 app.use('/skills', skillsRouter);
-app.use(cors());
+app.use(cors({
+  origin: ['https://webprosxds.github.io/','http://localhost:3000'], // allow list
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+ 
 app.use(bodyParser.json());
 mongoose.set('strictQuery', false);
 
